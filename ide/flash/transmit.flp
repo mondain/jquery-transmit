@@ -1,0 +1,10 @@
+﻿<flash_project name="transmit" version="1">
+    <project_folder name="classes" expanded="true">
+        <project_folder name="util" expanded="true">
+            <project_file path="..:..:src/flash/classes/com/googlecode/jquery/transmit/util/StringUtils.as" filetype="as" />
+        </project_folder>
+        <project_file path="..:..:src/flash/classes/com/googlecode/jquery/transmit/FileUploader.as" filetype="as" />
+        <project_file path="..:..:src/flash/classes/com/googlecode/jquery/transmit/JavaScriptAdapter.as" filetype="as" />
+    </project_folder>
+    <project_file path="..:..:src/flash/uploader.fla" filetype="fla" profile="" def_file="true" />
+</flash_project>
