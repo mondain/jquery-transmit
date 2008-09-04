@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>Upload files</title>
+		<link rel="stylesheet" type="text/css" href="jquery.transmit.css"/>
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>Upload files</h1>
+			<div class="upload clearfix">
+				<div class="step1">
+					<ul class="instructions">
+						<li id="step1">
+							<p>Step 1:</p>
+							<h3><a class="upload-add-files" href="javascript:void(0);">Choose files to upload</a></h3>
+							<p class="note"><b>NOTE:</b> Files are limited to 10MB in size.</p>
+						</li>
+						<li id="step2" class="disabled">
+							<p>Step 2:</p>
+							<h3>Upload the selected files</h3>
+						</li>
+					</ul>
+				</div>
+				<div class="step2 hidden">
+                    <div id="upload-table" class="upload-table">
+                        <div class="header">
+                            <ul class="clearfix">
+                                <li>
+                                    <div class="name">Name</div>
+                                    <div class="size">Size</div>
+                                    <div class="status">Remove?</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="contents">
+                            <div id="scrollable" class="scrollable">
+                                <ul id="file-list" class="clearfix">
+                                    <li id="row-template" class="hidden">
+                                        <div class="name">%name</div>
+                                        <div class="size">%size</div>
+                                        <div class="status">
+                                            <a class="remove" title="Remove?" href="javascript:void(0);">&nbsp;</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <ul class="clearfix">
+                                <li>
+                                    <div class="name">
+                                        <span id="upload-file-count">%files</span>
+                                        <span id="upload-add-more">
+                                            <span class="divider">|</span>
+                                            <a class="upload-add-more" href="javascript:void(0);">Add More</a>
+                                        </span>
+                                    </div>
+                                    <div id="upload-total-bytes" class="size">Total: %total</div>
+                                    <div class="status"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+					<br />
+					<div class="buttons">
+						<input id="uploadBtn" type="button" value="Upload Files"/>
+						<p>Or, <a href="jquery.transmit.html">cancel</a> and return to the home page.</p>
+					</div>
+				</div>
+                <div class="step3 hidden">
+                    <p>Congratulations, all of your files have been uploaded successfully.</p>
+                </div>
+            </div>
+		</div>
+        <div id="uploadSwf">
+            <p>Flash player 9.0.0 or higher is required to run this example.</p>
+        </div>
+		<script type="text/javascript" src="jquery-1.2.6.js"></script>
+        <script type="text/javascript" src="swfobject.js"></script>
+        <script type="text/javascript" src="jquery.transmit.js"></script>
+        <script type="text/javascript" language="javascript">
+            $(document).ready(function() {
+                uploader.embedSwf("uploadSwf", "uploader", "../swf/uploader.swf");
+            });
+		</script>
+	</body>
+</html>
