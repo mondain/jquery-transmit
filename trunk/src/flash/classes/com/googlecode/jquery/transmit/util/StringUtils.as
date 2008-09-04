@@ -1,0 +1,1 @@
+﻿package com.googlecode.jquery.transmit.util {		public class StringUtils {				public static function isEmpty(str:*):Boolean {			if (str == "undefined" || 				str == "null" || 				str == "" || 				str == null) {				return true;			}			return false;		}	}}
