@@ -43,6 +43,15 @@ p.note {
     width: 848px;
 }
 
+#transmit {
+    height: 1px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 1px;
+}
+
 div.upload {
 	background: #F7F7F7 none repeat scroll 0;
     margin: 8px 0;
