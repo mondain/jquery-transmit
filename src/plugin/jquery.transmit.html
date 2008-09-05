@@ -72,7 +72,7 @@
                 </div>
             </div>
 		</div>
-        <div id="uploadSwf">
+        <div id="transmit">
             <p>Flash player 9.0.0 or higher is required to run this example.</p>
         </div>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
@@ -80,7 +80,11 @@
         <script type="text/javascript" src="jquery.transmit.js"></script>
         <script type="text/javascript" language="javascript">
             $(document).ready(function() {
-                uploader.embedSwf("uploadSwf", "uploader", "../swf/uploader.swf");
+                var options = {
+                    swfId:  "uploader",
+                    swfUrl: "uploader.swf"
+                };
+                $("#transmit").transmit("http://localhost:8080/upload/", options);
             });
 		</script>
 	</body>
