@@ -71,11 +71,12 @@
                 <div class="step3 hidden">
                     <p>Congratulations, all of your files have been uploaded successfully.</p>
                 </div>
+            </div>            
+            <div id="transmit">
+                <p>Flash player 9.0.0 or higher is required to run this example.</p>
             </div>
+            <!-- END JQUERY-TRANSMIT -->
 		</div>
-        <div id="transmit">
-            <p>Flash player 9.0.0 or higher is required to run this example.</p>
-        </div>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
         <script type="text/javascript" src="swfobject.js"></script>
         <script type="text/javascript" src="jquery.transmit.js"></script>
@@ -88,6 +89,5 @@
                 $("#transmit").transmit("http://localhost:8080/upload/", options);
             });
 		</script>
-		<!-- END JQUERY-TRANSMIT -->
 	</body>
 </html>

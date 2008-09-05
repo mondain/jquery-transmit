@@ -45,8 +45,8 @@
             var attributes = {
                 id: settings.swfId,
                 data: settings.swfUrl,
-                width: "550",
-                height: "400"
+                width: "1",
+                height: "1"
             };
             var params = {
                 allowscriptaccess: "always",
@@ -236,10 +236,7 @@
     function formatFileSize(fileSize) {
         var suffix = "KB";
         var size = new Number(fileSize);
-        if (size >= 1073741824) {
-            size = size / 1073741824;
-            suffix = "GB";
-        } else if (size >= 1048576) {
+        if (size >= 1048576) {
             size = size / 1048576;
             suffix = "MB";
         } else {
