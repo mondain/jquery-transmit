@@ -56,6 +56,12 @@ p.note {
     width: 1px;
 }
 
+#transmit object,
+#transmit embed {
+    margin-left: 1px;
+    margin-top: 1px;
+}
+
 div.upload {
 	background: #F7F7F7 none repeat scroll 0;
     margin: 8px 0;
@@ -127,6 +133,10 @@ ul.instructions li p.note {
     width: 150px;
 }
 
+.upload-table div.status {
+    width: 55px;
+}
+
 .upload-table .header {
     background: #E4E4E4;
     border-bottom: 1px solid #CCC;
@@ -171,21 +181,21 @@ ul.instructions li p.note {
     margin: 0 4px;
 }
 
-.upload-table .contents .status .remove {
+.upload-table .contents .status a.remove {
     background: transparent url(img/bin.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;
     width: 16px;
 }
 
-.upload-table .contents .status .error {
+.upload-table .contents .status a.error {
     background: transparent url(img/error.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;
     width: 16px;
 }
 
-.upload-table .contents .status .complete {
+.upload-table .contents .status a.complete {
     background: transparent url(img/accept.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;

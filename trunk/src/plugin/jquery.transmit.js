@@ -57,8 +57,8 @@
             var attributes = {
                 id: $.transmit.settings.swfId,
                 data: $.transmit.settings.swfUrl,
-                width: "1",
-                height: "1"
+                width: "100%",
+                height: "100%"
             };
             var params = {
                 allowscriptaccess: "always",
