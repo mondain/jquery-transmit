@@ -24,6 +24,10 @@ a, a:visited {
 	color: #BBB;
 }
 
+.overlimit {
+    color: #C16803;
+}
+
 .hidden {
 	display: none;
 }
@@ -65,6 +69,10 @@ ul.instructions {
 
 ul.instructions li {
 	margin-bottom: 24px;
+}
+
+ul.instructions h3 {
+    color: #BBB;
 }
 
 ul.instructions li p {
@@ -170,25 +178,57 @@ ul.instructions li p.note {
     width: 16px;
 }
 
-.upload-table .contents .status .progress {
-    background: transparent url(img/time.png) 0 50% no-repeat;
-    display: inline;
-    margin-left: 16px;
-    width: 16px;
-}
-
 .upload-table .contents .status .error {
     background: transparent url(img/error.png) 0 50% no-repeat;
-    display: inline;
+    display: block;
     margin-left: 16px;
     width: 16px;
 }
 
 .upload-table .contents .status .complete {
     background: transparent url(img/accept.png) 0 50% no-repeat;
-    display: inline;
+    display: block;
     margin-left: 16px;
     width: 16px;
+}
+
+div.messages {
+    display: block;
+    font-size: 85%;
+}
+
+div.messages .error,
+div.messages .overlimit,
+div.messages .success {
+    margin-bottom: 16px;
+}
+
+div.messages .error p,
+div.messages .overlimit p,
+div.messages .success p {
+    margin-left: 18px;
+    padding: 8px;
+}
+
+div.messages .error {
+    border: 1px solid red;
+}
+
+div.messages .overlimit {
+    border: 1px solid red;
+}
+
+div.messages .error,
+div.messages .overlimit {
+    background: #FAEFD5 url(img/error.png) 8px 50% no-repeat;
+    border: 1px solid #F4D650;
+    color: #C16803;
+}
+
+div.messages .success {
+    background: #D5F7D4 url(img/accept.png) 8px 50% no-repeat;
+    border: 1px solid #349F2F;
+    color: #277823;
 }
 
 div.buttons {
