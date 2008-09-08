@@ -25,32 +25,44 @@
 
     $.transmit = {
         defaults: {
-            allowedDomain: "localhost",
+            allowedDomain: location.hostname,
+            allowedFileTypes: {}, // Any file type.
+            maxFileSize: 5242880, // 5 MB in bytes
             swfId: "uploader",
             swfUrl: "uploader.swf"
         },
         files: {},
         isUploading: false,
         numFiles: 0,
-        swf: null
+        numFilesCompleted: 0,
+        settings: null,
+        swf: null,
+        uploadUrl: ""
     };
     
     /* ----- API functions ----- */
 
     $.fn.extend({
-    
+
+        /**
+         * Instantiate the uploader, embed the SWF.
+         *
+         * @param uploadUrl <p>the url to upload selected files to</p>
+         * @param settings <p>convenience object to override the default settings<p>
+         */
         transmit: function(uploadUrl, settings) {
             var containerId = $(this).attr("id");
-            settings = $.extend({}, $.transmit.defaults, settings);
+            $.transmit.uploadUrl = uploadUrl;
+            $.transmit.settings = $.extend({}, $.transmit.defaults, settings);
             var attributes = {
-                id: settings.swfId,
-                data: settings.swfUrl,
+                id: $.transmit.settings.swfId,
+                data: $.transmit.settings.swfUrl,
                 width: "1",
                 height: "1"
             };
             var params = {
                 allowscriptaccess: "always",
-                allowedDomain: settings.allowedDomain,
+                allowedDomain: $.transmit.settings.allowedDomain,
                 flashvars:"elementId=" + containerId + "&eventHandler=$.fn.eventDispatcher"
             };
             $.transmit.swf = swfobject.createSWF(attributes, params, containerId);
@@ -61,15 +73,23 @@
                 $.data(this, "transmit", settings);
             });
         },
-        
+
+        /**
+         * Select files to upload.
+         */
         browse: function() {
-            $.transmit.swf.browse(false);
+            $.transmit.swf.browse(false, $.transmit.settings.allowedFileTypes);
         },
-        
-        upload: function() {
+
+        /**
+         * Upload the selected files.
+         *
+         * @param params <p>Additional variables sent to the upload url along with the files</p>
+         */
+        upload: function(params) {
             $.transmit.isUploading = true;
-            var params = {};
-            $.transmit.swf.upload(params);
+            $('div.messages').find('div').addClass('hidden');
+            $.transmit.swf.upload($.transmit.uploadUrl, "GET", params);
             $("#upload-table div.header div.status").html("");
             var rows = $('#file-list').find('li').get();
             $.each(rows, function(index, row) {
@@ -80,19 +100,34 @@
             $('#uploadBtn').attr('disabled', 'disabled').attr('value', 'Uploading...');
             $('#upload-add-more').hide();
         },
-        
+
+        /**
+         * Cancel the upload of a specific file.
+         *
+         * @param fileId <p>the file to cancel</p>
+         */
         cancel: function(fileId) {
             $.transmit.swf.cancel(fileId);
+            $.fn.removeFile(fileId);
         },
-        
+
+        /**
+         * Reset the uploader.
+         */
         clearFileList: function() {
             $.transmit.isUploading = false;
             $.transmit.swf.clearFileList();
             $.transmit.fileCount = 0;
             $("div.step1").removeClass("hidden");
             $("div.step2").addClass("hidden");
+            $('div.messages').find('div').addClass('hidden');
         },
-        
+
+        /**
+         * Remove the speficied file from the upload queue.
+         *
+         * @param fileId <p>the file to be removed</p>
+         */
         removeFile: function(fileId) {
             if ($.transmit.files[fileId]) {
                 $.transmit.swf.removeFile(fileId);
@@ -101,15 +136,18 @@
                 $.transmit.numFiles--;
                 if ($.transmit.numFiles > 0) {
                     renderFileTotals();
-                } else if ($.transmit.isUploading) {
-                    $("div.step3").removeClass("hidden");
-                    $("div.step2").addClass("hidden");
                 } else {
                     $.fn.clearFileList();
                 }
             }
         },
-        
+
+        /**
+         * Handle events sent to the plugin from the embedded SWF.
+         *
+         * @param elementId <p>the wrapping div</p>
+         * @param event <p>the event to be processed</p>
+         */
         eventDispatcher: function(elementId, event) {
             switch(event.type) {
                 case "swfReady":
@@ -136,6 +174,9 @@
                 case "uploadError":
                     onUploadError(event);
                     break;
+                case "debug":
+                    onSwfDebug(event);
+                    break;
             }
         }
     });
@@ -143,6 +184,7 @@
     /* ----- Event handlers ----- */
         
     function onSwfReady(event) {
+        $('#step1').find('h3').wrapInner('<a class="upload-add-files" href="javascript:void(0);"></a>')
         $("a.upload-add-files, a.upload-add-more").click(function() {
             $.fn.browse();
         });
@@ -173,24 +215,34 @@
     }
 
     function onUploadComplete(event) {
+        $.transmit.numFilesCompleted++;
         var elem = $("#" + event.id);
         elem.find("div").addClass("disabled");
-        elem.find("div.status").empty().html("<span class='complete'>&nbsp;</span>");
+        elem.find("div.status").empty().html("<a class='complete' title='Upload complete'>&nbsp;</a>");
+        if ($.transmit.isUploading && $.transmit.numFiles == $.transmit.numFilesCompleted) {
+            $("div.success").removeClass("hidden");
+            $("div.buttons").addClass("hidden");
+        }
     }
 
     function onUploadCompleteData(event) {
-        //uploader.removeFile(event.id);
+        // Do nothing...
     }
 
     function onUploadError(event) {
-        $("#" + event.id).find("div.status").empty().html("<span class='error'>&nbsp;</span>");
+        $("#" + event.id).find("div.status").empty().html("<a class='error' title='" + event.status + "'>&nbsp;</a>");
+        $("div.error").removeClass("hidden");
+        $('#uploadBtn').removeAttr('disabled').attr('value', 'Upload Files');
+    }
+
+    function onSwfDebug(event) {
+        // Log to firebug when available.
+        if (window.console) {
+            console.log("[SWF]: " + event.text);
+        }
     }
     
     /* ----- Utility functions ----- */
-    
-    function parseAllowedDomain(uploadUrl) {
-        
-    }
     
     function renderFileList() {
         resetFileList();
@@ -199,6 +251,10 @@
             var row = $("#row-template").clone().attr("id", id).removeClass("hidden");
             row.find("div.name").html(file.name);
             row.find("div.size").html(formatFileSize(file.size));
+            if (file.size > $.transmit.settings.maxFileSize) {
+                row.addClass("overlimit");
+                $("div.overlimit").removeClass("hidden");
+            }
             row.find("a.remove").attr("title", "Remove " + file.name + "?").click(function() {
                 $.fn.removeFile(id);
             });
