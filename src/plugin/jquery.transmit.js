@@ -184,7 +184,7 @@
     /* ----- Event handlers ----- */
         
     function onSwfReady(event) {
-        $('#step1').find('h3').wrapInner('<a class="upload-add-files" href="javascript:void(0);"></a>')
+        $('#step1').find('h3').wrapInner('<a class="upload-add-files" href="javascript:void(0);"></a>');
         $('a.upload-add-files, a.upload-add-more').click(function() {
             $.fn.browse();
         });
@@ -237,8 +237,8 @@
 
     function onSwfDebug(event) {
         // Log to firebug when available.
-        if (window.console) {
-            console.log('[SWF]: ' + event.text);
+        if (window.console && window.console.firebug) {
+            console.debug('[SWF]: %s', event.text);
         }
     }
     
@@ -246,7 +246,7 @@
     
     function renderFileList() {
         resetFileList();
-        var rows = new Array();
+        var rows = [];
         $.each($.transmit.files, function(id, file) {
             var row = $('#row-template').clone().attr('id', id).removeClass('hidden');
             row.find('div.name').html(file.name);
@@ -291,7 +291,7 @@
     
     function formatFileSize(fileSize) {
         var suffix = 'KB';
-        var size = new Number(fileSize);
+        var size = Number(fileSize);
         if (size >= 1048576) {
             size = size / 1048576;
             suffix = 'MB';
@@ -305,8 +305,12 @@
         rows.sort(function(a, b) {
             var nameA = $(a).children('div.name').text().toLowerCase();
             var nameB = $(b).children('div.name').text().toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
+            if (nameA < nameB) { 
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
             return 0;
         });
     }
