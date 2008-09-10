@@ -1,0 +1,13 @@
+#summary News & Release Updates
+
+= Release Updates =
+
+==== 1.0 Alpha ====
+This is the initial release of the plugin.  For all intents and purposes, the plugin should be considered a work in progress at the point and is not yet suitable for a production environment.  This release includes the following items:
+
+  * jQuery plugin
+  * HTML & CSS reference UI implementation
+  * Features include:
+    * Single or multiple file selection and upload to specified URL.
+    * Optional settings to specify location of SWF and related resources, file upload size, etc.
+    
