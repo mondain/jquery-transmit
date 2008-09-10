@@ -32,8 +32,8 @@ Internal requirements include the CSS file jquery.transmit.css and the HTML file
 The `$('#transmit').transmit()` function takes 2 arguments, with only the first being required.  
 
 ===== Arguments =====
-  * *uploadUrl*: the URL used to handle the uploaded files.
-  * *options*: user defined set of options which overrides the defaults provided.  See the *Options* section below for a detailed explanation of each configurable option.
+  * *uploadUrl*: The URL used to handle the uploaded files.
+  * *options*: User defined set of options which overrides the defaults provided.  See the *Options* section below for a detailed explanation of each configurable option.
 
 Transmit provides several useful options for customizing your upload experience.  These options are outlined below.
 
