@@ -21,7 +21,7 @@ For a complete explanation of the plugin usage, see the *Usage* section below.
 
 ==== External ====
 
-See the links on the project home page for the complete list of external dependencies.
+See the links on the project [http://code.google.com/p/jquery-transmit/ home page] for the complete list of external dependencies.
 
 ==== Internal ====
 
@@ -33,7 +33,7 @@ The `$('#transmit').transmit()` function takes 2 arguments, with only the first 
 
 ===== Arguments =====
   * *uploadUrl*: The URL used to handle the uploaded files.
-  * *options*: User defined set of options which overrides the defaults provided.  See the *Options* section below for a detailed explanation of each configurable option.
+  * *options*: (OPTIONAL) User defined set of options which overrides the defaults provided.  See the *Options* section below for a detailed explanation of each configurable option.
 
 Transmit provides several useful options for customizing your upload experience.  These options are outlined below.
 
