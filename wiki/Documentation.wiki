@@ -1,0 +1,29 @@
+#summary Documentation
+#labels Featured
+
+= Introduction =
+
+Welcome! Transmit (jquery-transmit) is a sophisticated jQuery plugin providing an elegant multi-file upload utility. At the core of the plugin is a small SWF file which provides single or multiple file selection and upload services.  
+
+= Getting Started =
+
+Getting started with the plugin couldn't be easier:
+
+{{{
+           $(document).ready(function() {
+                $("#transmit").transmit("http://mysite.com/upload/");
+            });
+}}}
+
+= Dependencies =
+
+==== External ====
+
+[http://jquery.com/ jQuery core library]
+[http://code.google.com/p/swfobject/ SWFObject]
+
+==== Internal ====
+
+Internal requirements include the CSS file jquery.transmit.css and the HTML file jquery.transmit.html.  The HTML contents are marked with comments for the essential DOM elements.  To use the HTML within a php, jsp or asp page, simply copy and paste the required elements, include the stylesheet and the plugin.
+
+= Options =
