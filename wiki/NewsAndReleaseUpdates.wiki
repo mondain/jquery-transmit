@@ -1,4 +1,5 @@
 #summary News & Release Updates
+#labels Featured
 
 = Release Updates =
 
