@@ -1,7 +1,7 @@
 /**
  * jQuery Transmit plugin (http://code.google.com/p/jquery-transmit)
  *
- * Copyright (c) 2008 Carl Sziebert, Paul Gregoire
+ * Copyright (c) 2008-2009 Carl Sziebert, Paul Gregoire
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
