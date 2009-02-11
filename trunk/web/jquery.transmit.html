@@ -9,6 +9,7 @@
 			<h1>Upload files</h1>
 			<!-- START JQUERY-TRANSMIT -->
 			<div class="upload clearfix">
+                <div id="transmit" class="transmit" style="position:absolute;z-index:2"></div>
 				<div class="step1">
 					<ul class="instructions">
 						<li id="step1">
@@ -73,9 +74,6 @@
 						<p>Or, <a href="jquery.transmit.html">cancel</a> and return to the home page.</p>
 					</div>
 				</div>
-            </div>            
-            <div id="transmit">
-                <p>Flash player 9.0.0 or higher is required to run this example.</p>
             </div>
             <!-- END JQUERY-TRANSMIT -->
 		</div>
@@ -88,9 +86,10 @@
                     allowedFileTypes: [{
                         description: "Images",
                         extensions: "*.jpg; *.gif; *.png"
-                    }]
+                    }],
+                    debug: true
                 };
-                $("#transmit").transmit("http://localhost:8080/uploader/", options);
+                $("#transmit").transmit("http://localhost:8080/fileupload/", options);
             });
 		</script>
 	</body>

@@ -12,7 +12,21 @@
         <param-value>jquery.transmit.root</param-value>
     </context-param>
 
-    
+    <listener>
+        <listener-class>
+            org.apache.commons.fileupload.servlet.FileCleanerCleanup
+        </listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>com.googlecode.example.FileUploadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/fileupload/</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
