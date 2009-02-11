@@ -27,6 +27,7 @@
         defaults: {
             allowedDomain: location.hostname,
             allowedFileTypes: {}, // Any file type.
+            debug: false,
             maxFileSize: 5242880, // 5 MB in bytes
             swfId: 'transmit',
             swfUrl: 'uploader.swf'
@@ -76,6 +77,8 @@
 
         /**
          * Select files to upload.
+         *
+         * @deprecated
          */
         browse: function() {
             $.transmit.swf.browse(false, $.transmit.settings.allowedFileTypes);
@@ -237,7 +240,7 @@
 
     function onSwfDebug(event) {
         // Log to firebug when available.
-        if (window.console && window.console.firebug) {
+        if ($.transmit.settings.debug && window.console && window.console.firebug) {
             console.debug('[SWF]: %s', event.text);
         }
     }
