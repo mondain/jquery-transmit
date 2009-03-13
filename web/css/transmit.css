@@ -20,6 +20,10 @@ a, a:visited {
 	text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 .disabled {
 	color: #BBB;
 }
@@ -47,19 +51,11 @@ p.note {
     width: 848px;
 }
 
-#transmit {
-    height: 1px;
+#transmit-uploader {
+    /*border: 1px solid red;*/
     overflow: hidden;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 1px;
-}
-
-#transmit object,
-#transmit embed {
-    margin-left: 1px;
-    margin-top: 1px;
+    position: absolute;
+    z-index: 999;
 }
 
 div.upload {
@@ -88,6 +84,10 @@ ul.instructions li p {
 
 ul.instructions li p.note {
 	margin-top: 4px;
+}
+
+ul.instructions li p.note strong {
+    font-weight: bold;
 }
 
 /* ------ File Upload ----- */
@@ -182,24 +182,30 @@ ul.instructions li p.note {
 }
 
 .upload-table .contents .status a.remove {
-    background: transparent url(img/bin.png) 0 50% no-repeat;
+    background: transparent url(../img/bin.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;
     width: 16px;
 }
 
 .upload-table .contents .status a.error {
-    background: transparent url(img/error.png) 0 50% no-repeat;
+    background: transparent url(../img/error.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;
     width: 16px;
 }
 
 .upload-table .contents .status a.complete {
-    background: transparent url(img/accept.png) 0 50% no-repeat;
+    background: transparent url(../img/accept.png) 0 50% no-repeat;
     display: block;
     margin-left: 16px;
     width: 16px;
+}
+
+a.complete,
+a.error,
+a.remove {
+    text-decoration: none;
 }
 
 div.messages {
@@ -230,13 +236,13 @@ div.messages .overlimit {
 
 div.messages .error,
 div.messages .overlimit {
-    background: #FAEFD5 url(img/error.png) 8px 50% no-repeat;
+    background: #FAEFD5 url(../img/error.png) 8px 50% no-repeat;
     border: 1px solid #F4D650;
     color: #C16803;
 }
 
 div.messages .success {
-    background: #D5F7D4 url(img/accept.png) 8px 50% no-repeat;
+    background: #D5F7D4 url(../img/accept.png) 8px 50% no-repeat;
     border: 1px solid #349F2F;
     color: #277823;
 }
