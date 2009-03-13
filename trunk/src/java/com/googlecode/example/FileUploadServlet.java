@@ -27,8 +27,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import static org.apache.commons.fileupload.servlet.ServletFileUpload.isMultipartContent;
-import static org.apache.commons.lang.StringUtils.lastIndexOf;
-import static org.apache.commons.lang.StringUtils.substringAfterLast;
+import static org.apache.commons.io.FilenameUtils.getName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 import java.io.File;
-import static java.io.File.separator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -80,7 +78,10 @@ public class FileUploadServlet extends HttpServlet {
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
                         File file = new File(
-                                new StringBuilder(storageRoot).append(parseFileName(item)).toString());
+                                new StringBuilder(storageRoot)
+                                        .append("/")
+                                        .append(getName(item.getName()))
+                                        .toString());
                         logger.debug("Writing file to: {}", file.getCanonicalPath());
                         item.write(file);
                     }
@@ -92,13 +93,5 @@ public class FileUploadServlet extends HttpServlet {
             }
             writer.flush();
         }
-    }
-
-    private String parseFileName(FileItem item) {
-        logger.debug("Parsing name from item: {}", item.getName());
-        if (lastIndexOf(item.getName(), separator) != -1) {
-            return substringAfterLast(item.getName(), separator);
-        }
-        return item.getName();
     }
 }

@@ -62,9 +62,12 @@
                 height: '100%'
             };
             var params = {
-                allowscriptaccess: 'always',
                 allowedDomain: $.transmit.settings.allowedDomain,
-                flashvars:'elementId=' + containerId + '&eventHandler=$.fn.eventDispatcher'
+                allowscriptaccess: 'always',
+                bgcolor: "#FF0000",
+                flashvars:'elementId=' + containerId + '&eventHandler=$.fn.eventDispatcher',
+                menu: "false",
+                wmode: "transparent"
             };
             $.transmit.swf = swfobject.createSWF(attributes, params, containerId);
             if ($.transmit.swf) {
@@ -76,15 +79,6 @@
         },
 
         /**
-         * Select files to upload.
-         *
-         * @deprecated
-         */
-        browse: function() {
-            $.transmit.swf.browse(false, $.transmit.settings.allowedFileTypes);
-        },
-
-        /**
          * Upload the selected files.
          *
          * @param params <p>Additional variables sent to the upload url along with the files</p>
@@ -92,7 +86,7 @@
         upload: function(params) {
             $.transmit.isUploading = true;
             $('div.messages').find('div').addClass('hidden');
-            $.transmit.swf.upload($.transmit.uploadUrl, 'GET', params);
+            $.transmit.swf.uploadAll($.transmit.uploadUrl, 'POST', params);
             $('#upload-table div.header div.status').html('');
             var rows = $('#file-list').find('li').get();
             $.each(rows, function(index, row) {
@@ -101,7 +95,7 @@
                 }
             });
             $('#uploadBtn').attr('disabled', 'disabled').attr('value', 'Uploading...');
-            $('#upload-add-more').hide();
+            $('#upload-add-more').addClass('hidden');
         },
 
         /**
@@ -124,6 +118,9 @@
             $('div.step1').removeClass('hidden');
             $('div.step2').addClass('hidden');
             $('div.messages').find('div').addClass('hidden');
+            var step = $('a.upload-add-more');
+            var offset = step.position();
+            moveSwf(offset.top, offset.left, step.width(), step.height());
         },
 
         /**
@@ -152,7 +149,8 @@
          * @param event <p>the event to be processed</p>
          */
         eventDispatcher: function(elementId, event) {
-            switch(event.type) {
+            //console.debug("Event: %o", event);
+            if (event && event.type) switch(event.type) {
                 case 'swfReady':
                     onSwfReady(event);
                     break;
@@ -177,7 +175,7 @@
                 case 'uploadError':
                     onUploadError(event);
                     break;
-                case 'debug':
+                case 'log':
                     onSwfDebug(event);
                     break;
             }
@@ -188,9 +186,11 @@
         
     function onSwfReady(event) {
         $('#step1').find('h3').wrapInner('<a class="upload-add-files" href="javascript:void(0);"></a>');
-        $('a.upload-add-files, a.upload-add-more').click(function() {
-            $.fn.browse();
-        });
+        var step = $('a.upload-add-files');
+        var offset = step.position();
+        moveSwf(offset.top, offset.left, step.width(), step.height());
+        $.transmit.swf.setAllowMultipleFiles(true);
+        $.transmit.swf.setFileFilters($.transmit.settings.allowedFileTypes);
         $('#uploadBtn').attr('disabled', '').click(function() {
             $.fn.upload();
         });
@@ -225,6 +225,7 @@
         if ($.transmit.isUploading && $.transmit.numFiles == $.transmit.numFilesCompleted) {
             $('div.success').removeClass('hidden');
             $('div.buttons').addClass('hidden');
+            moveSwf(0, -9999, 1, 1);
         }
     }
 
@@ -241,7 +242,7 @@
     function onSwfDebug(event) {
         // Log to firebug when available.
         if ($.transmit.settings.debug && window.console && window.console.firebug) {
-            console.debug('[SWF]: %s', event.text);
+            console.debug('[SWF]: %o', event);
         }
     }
     
@@ -269,7 +270,14 @@
         });
         $('div.step1').addClass('hidden');
         $('div.step2').removeClass('hidden');
+        var step = $('a.upload-add-more');
+        var offset = step.position();
+        moveSwf(offset.top, offset.left, step.width(), step.height());
         renderFileTotals();
+    }
+
+    function moveSwf(top, left, width, height) {
+        $('#transmit-uploader').css('top', top).css('left', left).width(width).height(height);
     }
     
     function resetFileList() {
@@ -288,7 +296,11 @@
             totalSize += file.size;
             $.transmit.numFiles++;
         });
-        $('#upload-file-count').html($.transmit.numFiles + ' Files');
+        if ($.transmit.numFiles == 1) {
+            $('#upload-file-count').html($.transmit.numFiles + ' File');
+        } else {
+            $('#upload-file-count').html($.transmit.numFiles + ' Files');
+        }
         $('#upload-total-bytes').html('Total: ' + formatFileSize(totalSize));
     }
     

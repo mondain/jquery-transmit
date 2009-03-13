@@ -2,20 +2,22 @@
 <html>
 	<head>
 		<title>Upload files</title>
-		<link rel="stylesheet" type="text/css" href="jquery.transmit.css"/>
+		<link rel="stylesheet" type="text/css" href="css/transmit.css"/>
 	</head>
 	<body>
 		<div id="wrapper">
 			<h1>Upload files</h1>
 			<!-- START JQUERY-TRANSMIT -->
 			<div class="upload clearfix">
-                <div id="transmit" class="transmit" style="position:absolute;z-index:2"></div>
-				<div class="step1">
+                <div id="transmit-uploader">
+                    <div id="transmit">This entire element should be replaced by jQuery.</div>
+                </div>
+                <div class="step1">
 					<ul class="instructions">
 						<li id="step1">
 							<p>Step 1:</p>
 							<h3>Choose files to upload</h3>
-							<p class="note"><b>NOTE:</b> Files are limited to 5 MB in size.</p>
+							<p class="note"><strong>NOTE:</strong> Files are limited to 5 MB in size.</p>
 						</li>
 						<li id="step2">
 							<p>Step 2:</p>
@@ -86,8 +88,7 @@
                     allowedFileTypes: [{
                         description: "Images",
                         extensions: "*.jpg; *.gif; *.png"
-                    }],
-                    debug: true
+                    }]
                 };
                 $("#transmit").transmit("http://localhost:8080/fileupload/", options);
             });
