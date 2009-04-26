@@ -118,7 +118,7 @@
             $('div.step1').removeClass('hidden');
             $('div.step2').addClass('hidden');
             $('div.messages').find('div').addClass('hidden');
-            var step = $('a.upload-add-more');
+            var step = $('a.upload-add-files');
             var offset = step.position();
             moveSwf(offset.top, offset.left, step.width(), step.height());
         },
